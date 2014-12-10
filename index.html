@@ -22,17 +22,6 @@
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
-
-  <script id="info-modal.html" type="text/ng-template">
-    <ion-modal-view>
-      <ion-header-bar>
-        <h1 class="title">"Jeg trenger hjelp"</h1>
-      </ion-header-bar>
-      <ion-content>
-        Dette er en enkel app som kan brukes som køsystem i skolen når mange trenger elever trenger hjelp og læreren har begrenset kapasitet, f.eks. i mattetimer når elevene gjør oppgaver. Ved å bruke en app slipper man at det blir uenighet om hvem som var først i køen, og man slipper bråket av at man skriver seg på tavlen for å stille seg i kø.
-      </ion-content>
-    </ion-modal-view>
-  </script>
 </head>
 
 <body ng-app="jegTrengerHjelp">
@@ -40,21 +29,21 @@
 <ion-pane ng-controller="StudentCtrl">
   <ion-header-bar class="bar-stable">
     <div class="buttons">
-      <button class="button-icon icon button ion-information-circled" ng-click="info()"></button>
+      <button class="button-icon icon button ion-information-circled" ng-click="infoModal.show()"></button>
     </div>
     <h1 class="title"></h1>
-    <div class="buttons">
+    <div class="buttons" ng-show="!inputNameMode.value">
       <button class="button-icon icon button ion-gear-a" ng-click="inputNameMode.value = true;"></button>
     </div>
   </ion-header-bar>
 
   <ion-content>
-    <div class="list list-inset" ng-if="inputNameMode.value">
-      <form novalidate ng-submit="putItem()" class="item item-input">
+    <form novalidate ng-submit="putItem()" class="list list-inset" ng-if="inputNameMode.value">
+      <div class="item item-input">
         <input type="text" placeholder="Skriv inn navnet ditt" ng-model="name.text" maxlength="50" required>
-      </form>
+      </div>
       <button type="submit" class="button button-block button-positive" ng-click="nameOk()">Ok</button>
-    </div>
+    </form>
 
     <div ng-if="!inputNameMode.value">
       <button type="submit" class="button button-block button-energized"
@@ -66,7 +55,6 @@
         Nvm, jeg fikk det til
       </button>
     </div>
-
 
   </ion-content>
 </ion-pane>

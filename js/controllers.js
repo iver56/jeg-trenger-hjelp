@@ -1,6 +1,6 @@
 angular.module('jegTrengerHjelp.controllers', [])
 
-  .controller('StudentCtrl', function($scope, $firebase) {
+  .controller('StudentCtrl', function($scope, $firebase, $ionicModal) {
     $scope.inputNameMode = {value: true};
     $scope.name = { text: "" };
     $scope.isHelpNeeded = {value: false};
@@ -16,6 +16,13 @@ angular.module('jegTrengerHjelp.controllers', [])
     $scope.neverMind = function() {
       $scope.isHelpNeeded.value = false;
     };
+
+    $ionicModal.fromTemplateUrl('templates/info-modal.html', {scope: $scope}).then(function(modal) {
+      $scope.infoModal = modal;
+    });
+    $scope.$on('$destroy', function() {
+      $scope.infoModal.remove();
+    });
 
     var ref = new Firebase(firebaseUrl);
     var sync = $firebase(ref);
