@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <meta name="msapplication-TileImage" content="tile-144.png">
+  <meta name="msapplication-TileColor" content="#FFDA9B">
+  <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Jeg trenger hjelp</title>
+
+  <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+
+  <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+
+  <!-- firebase -->
+  <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.min.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+
+  <script id="info-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <h1 class="title">"Jeg trenger hjelp"</h1>
+      </ion-header-bar>
+      <ion-content>
+        Dette er en enkel app som kan brukes som køsystem i skolen når mange trenger elever trenger hjelp og læreren har begrenset kapasitet, f.eks. i mattetimer når elevene gjør oppgaver. Ved å bruke en app slipper man at det blir uenighet om hvem som var først i køen, og man slipper bråket av at man skriver seg på tavlen for å stille seg i kø.
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</head>
+
+<body ng-app="jegTrengerHjelp">
+
+<ion-pane ng-controller="StudentCtrl">
+  <ion-header-bar class="bar-stable">
+    <div class="buttons">
+      <button class="button-icon icon button ion-information-circled" ng-click="info()"></button>
+    </div>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button-icon icon button ion-gear-a" ng-click="inputNameMode.value = true;"></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="list list-inset" ng-if="inputNameMode.value">
+      <form novalidate ng-submit="putItem()" class="item item-input">
+        <input type="text" placeholder="Skriv inn navnet ditt" ng-model="name.text" maxlength="50" required>
+      </form>
+      <button type="submit" class="button button-block button-positive" ng-click="nameOk()">Ok</button>
+    </div>
+
+    <div ng-if="!inputNameMode.value">
+      <button type="submit" class="button button-block button-energized"
+              ng-click="needHelp()" ng-show="!isHelpNeeded.value">
+        Jeg trenger hjelp!
+      </button>
+      <button type="submit" class="button button-block button-calm"
+              ng-click="neverMind()" ng-show="isHelpNeeded.value">
+        Nvm, jeg fikk det til
+      </button>
+    </div>
+
+
+  </ion-content>
+</ion-pane>
+</body>
+</html>
