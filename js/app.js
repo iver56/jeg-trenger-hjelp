@@ -19,3 +19,5 @@ var guid = (function() {
       s4() + '-' + s4() + s4() + s4();
   };
 })();
+
+jegTrengerHjelpControllers = angular.module('jegTrengerHjelp.controllers', []);

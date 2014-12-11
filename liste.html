@@ -9,7 +9,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <title>Hjelp meg</title>
+  <title>Hjelp meg - liste</title>
 
   <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
 
@@ -21,12 +21,12 @@
 
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/student-controller.js"></script>
+  <script src="js/list-controller.js"></script>
 </head>
 
 <body ng-app="jegTrengerHjelp">
 
-<ion-pane ng-controller="StudentCtrl">
+<ion-pane ng-controller="ListCtrl">
   <ion-header-bar class="bar-stable">
     <div class="buttons">
       <button class="button-icon icon button ion-information-circled" ng-click="infoModal.show()"></button>
@@ -38,35 +38,14 @@
   </ion-header-bar>
 
   <ion-content>
-    <form novalidate class="list list-inset" ng-if="inputNameMode.value">
-      <div class="item item-input">
-        <input type="text" placeholder="Skriv inn navnet ditt" ng-model="name.text" maxlength="50" required>
-      </div>
-      <button type="submit" class="button button-block button-positive" ng-click="nameOk()">Ok</button>
-    </form>
-
-    <div ng-if="!inputNameMode.value">
-      <button type="submit" class="button button-block button-energized"
-              ng-click="enqueue()" ng-show="getEnqueuedItemIndex() < 0">
-        Jeg trenger hjelp!
-      </button>
-      <button type="submit" class="button button-block button-calm"
-              ng-click="dequeue()" ng-show="getEnqueuedItemIndex() >= 0">
-        Fjern meg fra køen
-      </button>
-
-      <div class="padding">
-        <p ng-show="getEnqueuedItemIndex() === 0">Det er din tur nå</p>
-        <p ng-show="getEnqueuedItemIndex() === 1">
-          Du er nestemann (etter {{ queue[getEnqueuedItemIndex() - 1].name }}) i køen
-        </p>
-        <p ng-show="getEnqueuedItemIndex() > 1">
-          Du er nr. {{ getEnqueuedItemIndex() }} i køen.
-          Det er din tur etter {{ queue[getEnqueuedItemIndex() - 1].name }}.
-        </p>
-      </div>
-    </div>
-
+    <ion-list>
+      <ion-item class="item item-checkbox" ng-repeat="item in queue">
+        <label class="checkbox checkbox-balanced">
+          <input type="checkbox" ng-click="remove(item)">
+        </label>
+        {{ item.name }}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-pane>
 </body>
