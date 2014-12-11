@@ -47,13 +47,24 @@
 
     <div ng-if="!inputNameMode.value">
       <button type="submit" class="button button-block button-energized"
-              ng-click="needHelp()" ng-show="!isHelpNeeded.value">
+              ng-click="enqueue()" ng-show="getEnqueuedItemIndex() < 0">
         Jeg trenger hjelp!
       </button>
       <button type="submit" class="button button-block button-calm"
-              ng-click="neverMind()" ng-show="isHelpNeeded.value">
-        Nvm, jeg fikk det til
+              ng-click="dequeue()" ng-show="getEnqueuedItemIndex() >= 0">
+        Nvm, fikk det til
       </button>
+
+      <div class="padding">
+        <p ng-show="getEnqueuedItemIndex() === 0">Det er din tur nå</p>
+        <p ng-show="getEnqueuedItemIndex() === 1">
+          Du er nestemann (etter {{ queue[getEnqueuedItemIndex() - 1].name }}) i køen
+        </p>
+        <p ng-show="getEnqueuedItemIndex() > 1">
+          Du er nr. {{ getEnqueuedItemIndex() }} i køen.
+          Det er din tur etter {{ queue[getEnqueuedItemIndex() - 1].name }}.
+        </p>
+      </div>
     </div>
 
   </ion-content>
