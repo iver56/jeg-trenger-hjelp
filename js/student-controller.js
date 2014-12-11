@@ -13,10 +13,15 @@ jegTrengerHjelpControllers.controller('StudentCtrl', function($scope, $firebase,
   $scope.nameOk = function() {
     $scope.inputNameMode.value = false;
     localStorage.setItem('userName', $scope.name.text);
+    var enqueuedItemIndex = $scope.getEnqueuedItemIndex();
+    if (enqueuedItemIndex >= 0) {
+      var item = $scope.queue[enqueuedItemIndex];
+      item.name = $scope.name.text;
+      $scope.queue.$save(item);
+    }
   };
 
   $scope.getEnqueuedItemIndex = function() {
-    console.log('checking index...');
     for (var i = 0; i < $scope.queue.length; i++) {
       var queueItem = $scope.queue[i];
       if (queueItem.id === $scope.userId) {
